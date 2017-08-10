@@ -8,9 +8,10 @@ User Story: When I submit something, I will receive the file size in bytes withi
 
 // init project
 var express = require('express');
-var app = express();
 var multer = require('multer');
 var upload = multer({});
+var app = express();
+
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -28,7 +29,7 @@ app.get("/dreams", function (request, response) {
 });
 
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
-app.post("/dreams", function (request, response) {
+app.post("/dreams", upload.single('sizefile'), function (request, response) {  
   dreams.push(request.query.dream);
   response.sendStatus(200);
 });
