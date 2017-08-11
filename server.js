@@ -12,8 +12,6 @@ var multer = require('multer');
 var upload = multer();
 var app = express();
 
-var formData = new FormData();
-
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -30,8 +28,9 @@ app.get("/dreams", function (request, response) {
 });
 
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
-app.post("/dreams", upload.single('sizefile'), function (request, response) {  
-  dreams.push(request.query.dream);
+app.post("/", upload.single(), function (request, response) {
+  let formData = request.file;
+  console.log(formData);
   response.sendStatus(200);
 });
 
