@@ -29,11 +29,11 @@ app.get("/dreams", function (request, response) {
 
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
 app.post("/", upload.single('fileSize'), function (request, response) {
-  let formData = request.file;
+  let form = request.file;
     if (request.file) {
       console.log('theres a file in there');
     }
-  console.log(formData);
+  console.log(form);
   response.sendStatus(200);
 });
 
