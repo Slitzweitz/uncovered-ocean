@@ -9,9 +9,10 @@ User Story: When I submit something, I will receive the file size in bytes withi
 // init project
 var express = require('express');
 var multer = require('multer');
-var upload = multer({});
+var upload = multer();
 var app = express();
 
+var formData = new FormData();
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
