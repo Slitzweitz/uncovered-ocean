@@ -22,7 +22,7 @@ $(function() {
       } else {
         oOutput.innerHTML = "Error " + oReq.status + " occurred when trying to upload your file.<br \/>";
       }
-  };
+    };
 
   oReq.send(oData);
   ev.preventDefault();

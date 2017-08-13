@@ -31,7 +31,8 @@ app.use(multer({
   dest: "./dreams",
   limits: {
     files: 1
-  }  
+  },
+  inMemory: true
 }))
 
 // http://expressjs.com/en/starter/basic-routing.html
@@ -47,9 +48,8 @@ app.get("/dreams", function (request, response) {
 app.post("/", upload.single('fileSize'), function (request, response) {
   let form = request.file;
     if (request.file) {
-      console.log('theres a file in there');
+      console.log('theres a file in there: ', form);
     }
-  console.log(form);
   response.sendStatus(200);
 });
 
