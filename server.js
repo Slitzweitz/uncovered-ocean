@@ -4,6 +4,15 @@
 /*
 User Story: I can submit a FormData object that includes a file upload.
 User Story: When I submit something, I will receive the file size in bytes within the JSON response
+
+Need to-
+when file is added:
+  Append file to FormData object
+when submit is pressed:
+  Submit FormData object to the server
+  Read size of the file/FormData object
+  Send size as response
+  
 */
 
 // init project
