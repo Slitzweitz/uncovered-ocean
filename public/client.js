@@ -8,6 +8,7 @@ $(function() {
   console.log('hello world from client.js :o');
 
   var form = document.forms.namedItem("fileinput");
+  
   form.addEventListener('submit', function(ev) {
 
     var oOutput = document.querySelector("div"),
