@@ -28,7 +28,7 @@ var app = express();
 app.use(express.static('public'));
 
 app.use(multer({
-  dest: "./dreams",
+  dest: "./",
   limits: {
     files: 1
   },
