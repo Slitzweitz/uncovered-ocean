@@ -18,9 +18,11 @@ when submit is pressed:
 // init project
 var express = require('express');
 var multer = require('multer');
+var mongo = require('mongodb').MongoClient;
+var uri = process.env.MONGODB_URI;
 var storage = multer.diskStorage({
   destination: function(req, file, cb){
-    cb(null, './tmp/my-uploads');
+    cb(null, '/tmp/my-uploads/');
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now())
@@ -40,7 +42,16 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get("/tmp/my-uploads/", (req, res) => {
+app.get("/tmp/my-uploads/:fileName", (req, res) => {
+  mongo.connect(uri, (err, db) => {
+    if (err) throw err;
+    // console.log('connected');
+    var collection = db.collection('imgmodels');
+    collection.insertOne({
+        term : req.params.fileName
+      });
+    db.close();
+  });
   console.log(req.file);
   res.sendStatus(200);
 })
