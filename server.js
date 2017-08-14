@@ -19,8 +19,8 @@ when submit is pressed:
 var express = require('express');
 var multer = require('multer');
 var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '/tmp/my-uploads')
+  destination: function(req, file, cb){
+    cb(null, './tmp/my-uploads');
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now())
@@ -40,8 +40,9 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get("/tmp/my-uploads", (req, res) => {
+app.get("/tmp/my-uploads/", (req, res) => {
   console.log(req.file);
+  res.sendStatus(200);
 })
 
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
@@ -52,6 +53,8 @@ app.post("/dreams", upload.single('fileSize'), function (request, response) {
     }
   response.sendStatus(200);
 });
+
+var uploads = [];
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
