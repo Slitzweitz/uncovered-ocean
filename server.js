@@ -18,13 +18,15 @@ when submit is pressed:
 // init project
 var express = require('express');
 var multer = require('multer');
-var upload = multer({
-  dest: "./",
-  limits: {
-    files: 1
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/tmp/my-uploads')
   },
-  inMemory: true
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
 });
+var upload = multer({storage: storage});
 var app = express();
 
 // we've started you off with Express, 
@@ -38,11 +40,15 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
+app.get("/tmp/my-uploads", (req, res) => {
+  console.log(req.file);
+})
+
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
 app.post("/dreams", upload.single('fileSize'), function (request, response) {
-  let fileSize = request.file.size;
+  let fileObj = request.file;
     if (request.file) {
-      console.log('theres a file in there: ', fileSize);
+      console.log('theres a file in there: ', fileObj);
     }
   response.sendStatus(200);
 });
