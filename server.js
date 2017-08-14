@@ -20,14 +20,7 @@ var express = require('express');
 var multer = require('multer');
 var mongo = require('mongodb').MongoClient;
 var uri = process.env.MONGODB_URI;
-var storage = multer.diskStorage({
-  destination: function(req, file, cb){
-    cb(null, '/tmp/my-uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
-});
+var storage = multer.memoryStorage();
 var upload = multer({storage: storage});
 var app = express();
 
