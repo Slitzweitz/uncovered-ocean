@@ -38,12 +38,8 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get("/dreams", function (request, response) {
-  response.send(dreams);
-});
-
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
-app.post("/", upload.single('fileSize'), function (request, response) {
+app.post("/dreams", upload.single('fileSize'), function (request, response) {
   let fileSize = request.file.size;
     if (request.file) {
       console.log('theres a file in there: ', fileSize);
